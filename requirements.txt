@@ -7,3 +7,6 @@ fastapi>=0.110
 uvicorn>=0.29
 requests>=2.31
 jupyter>=1.0
+xgboost>=2.0
+lightgbm>=4.0
+tensorflow>=2.15

@@ -82,6 +82,12 @@ Cài thư viện:
 pip install -r requirements.txt
 ```
 
+Tuỳ chọn cho phần nâng cao XGBoost/LightGBM/LSTM:
+
+```bash
+pip install -r requirements-advanced.txt
+```
+
 ## 5. Chạy bài mẫu bằng script
 
 Tải dataset public hoặc dùng fallback sample:
@@ -134,12 +140,19 @@ Chạy từng cell từ trên xuống. Sau mỗi phần, đọc kỹ câu hỏi 
 Sau khi train model xong:
 
 ```bash
+python src/app.py
+```
+
+Hoặc chạy bằng uvicorn:
+
+```bash
 uvicorn src.app:app --reload
 ```
 
 Mở trình duyệt:
 
 ```text
+http://127.0.0.1:8000/       # giao diện dashboard hiển thị dữ liệu
 http://127.0.0.1:8000/docs
 ```
 
@@ -167,3 +180,12 @@ Bạn hoàn thành bài mẫu khi có đủ:
 - API `/forecast` trả `predicted_value`, `risk_level`, `recommendation`, `safety_note`.
 - Bạn giải thích được vì sao Lab 4 không dùng Precision/Recall/F1 như Lab 3.
 - Bạn giải thích được vì sao dự báo cao chưa được phép tự động cắt/bật thiết bị.
+
+## 9. Phần báo cáo bổ sung
+
+Xem `BAOCAO.md` để có phần phân tích:
+
+- Điều chỉnh forecasting horizon.
+- Chọn target khác hoặc ánh xạ sang use-case nhóm.
+- So sánh Linear Regression với Random Forest bằng MAE/RMSE/MAPE.
+- XGBoost/LightGBM/LSTM optional, multi-step forecasting, prediction interval và drift monitoring.

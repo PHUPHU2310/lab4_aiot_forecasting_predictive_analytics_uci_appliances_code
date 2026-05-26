@@ -1,7 +1,7 @@
 {
-  "dataset_rows_after_feature_engineering": 2975,
-  "train_rows": 2231,
-  "test_rows": 744,
+  "dataset_rows_after_feature_engineering": 19710,
+  "train_rows": 14782,
+  "test_rows": 4928,
   "target": "Appliances",
   "forecast_horizon_steps": 1,
   "forecast_horizon_minutes": 10,
@@ -9,46 +9,181 @@
   "feature_policy": "Use current and historical lag/rolling features only; target_future is shifted after feature creation.",
   "best_model_name": "linear_regression_v1",
   "risk_thresholds_from_training_target": {
-    "warning": 98.0,
-    "high": 141.0,
-    "critical": 205.1
+    "warning": 90.0,
+    "high": 210.0,
+    "critical": 400.0
   },
   "metrics_by_model": {
     "last_value_baseline": {
-      "mae": 15.1358,
-      "rmse": 28.3285,
-      "mape_percent": 15.6447,
-      "forecast_bias": -0.0874,
+      "mae": 25.7812,
+      "rmse": 64.4874,
+      "mape_percent": 21.8438,
+      "forecast_bias": -0.067,
       "model_type": "baseline"
     },
     "moving_average_6_baseline": {
-      "mae": 22.1871,
-      "rmse": 35.9803,
-      "mape_percent": 25.0943,
-      "forecast_bias": -0.2646,
+      "mae": 33.7003,
+      "rmse": 74.0469,
+      "mape_percent": 29.496,
+      "forecast_bias": -0.0822,
       "model_type": "baseline"
     },
     "linear_regression_v1": {
-      "mae": 13.2916,
-      "rmse": 26.4976,
-      "mape_percent": 15.7168,
-      "forecast_bias": -0.0958,
+      "mae": 27.4157,
+      "rmse": 58.1258,
+      "mape_percent": 27.2872,
+      "forecast_bias": 2.5689,
       "model_type": "Pipeline"
     },
     "random_forest_v1": {
-      "mae": 14.4224,
-      "rmse": 27.1028,
-      "mape_percent": 17.2894,
-      "forecast_bias": 1.0093,
+      "mae": 40.0771,
+      "rmse": 71.6002,
+      "mape_percent": 41.5248,
+      "forecast_bias": 22.3716,
       "model_type": "RandomForestRegressor"
     },
     "gradient_boosting_advanced_v1": {
-      "mae": 14.5067,
-      "rmse": 27.1723,
-      "mape_percent": 17.4729,
-      "forecast_bias": 0.571,
+      "mae": 39.5115,
+      "rmse": 66.3859,
+      "mape_percent": 45.9061,
+      "forecast_bias": 21.4066,
       "model_type": "GradientBoostingRegressor"
     }
+  },
+  "advanced_model_availability": {
+    "xgboost_v1": {
+      "available": false,
+      "status": "not_installed",
+      "package": "xgboost",
+      "error": "No module named 'xgboost'"
+    },
+    "lightgbm_v1": {
+      "available": false,
+      "status": "not_installed",
+      "package": "lightgbm",
+      "error": "No module named 'lightgbm'"
+    },
+    "lstm_sequence_v1": {
+      "available": false,
+      "status": "not_installed",
+      "package": "tensorflow",
+      "note": "LSTM needs TensorFlow/Keras. This lab records availability but keeps deployment in joblib-compatible sklearn models.",
+      "error": "No module named 'tensorflow'"
+    }
+  },
+  "multi_step_forecasting": {
+    "10_minutes": {
+      "horizon_steps": 1,
+      "horizon_minutes": 10,
+      "best_model_name": "linear_regression_v1",
+      "metrics_by_model": {
+        "linear_regression_v1": {
+          "mae": 27.4157,
+          "rmse": 58.1258,
+          "mape_percent": 27.2872,
+          "forecast_bias": 2.5689
+        },
+        "random_forest_v1": {
+          "mae": 38.3878,
+          "rmse": 70.7755,
+          "mape_percent": 39.0116,
+          "forecast_bias": 19.7721
+        }
+      }
+    },
+    "30_minutes": {
+      "horizon_steps": 3,
+      "horizon_minutes": 30,
+      "best_model_name": "linear_regression_v1",
+      "metrics_by_model": {
+        "linear_regression_v1": {
+          "mae": 41.3782,
+          "rmse": 76.9695,
+          "mape_percent": 44.2262,
+          "forecast_bias": 6.7827
+        },
+        "random_forest_v1": {
+          "mae": 58.4413,
+          "rmse": 95.333,
+          "mape_percent": 65.0446,
+          "forecast_bias": 35.2578
+        }
+      }
+    },
+    "60_minutes": {
+      "horizon_steps": 6,
+      "horizon_minutes": 60,
+      "best_model_name": "linear_regression_v1",
+      "metrics_by_model": {
+        "linear_regression_v1": {
+          "mae": 46.7094,
+          "rmse": 80.5443,
+          "mape_percent": 52.5331,
+          "forecast_bias": 10.7561
+        },
+        "random_forest_v1": {
+          "mae": 67.6072,
+          "rmse": 105.0142,
+          "mape_percent": 83.5008,
+          "forecast_bias": 42.8695
+        }
+      }
+    }
+  },
+  "prediction_interval": {
+    "method": "conformal_abs_residual_quantile_on_test_split",
+    "interval_90_half_width": 51.2021,
+    "interval_95_half_width": 104.7997,
+    "coverage_90_percent": 89.9959,
+    "coverage_95_percent": 94.9878
+  },
+  "drift_monitoring": {
+    "method": "train_vs_test_population_stability_index_and_standardized_mean_diff",
+    "target_psi": 0.2036,
+    "drift_risk_level": "WARNING",
+    "top_feature_drift": [
+      {
+        "feature": "month",
+        "standardized_mean_diff": 2.1533
+      },
+      {
+        "feature": "T9",
+        "standardized_mean_diff": 2.1166
+      },
+      {
+        "feature": "T5",
+        "standardized_mean_diff": 2.0726
+      },
+      {
+        "feature": "T4",
+        "standardized_mean_diff": 1.9314
+      },
+      {
+        "feature": "T3",
+        "standardized_mean_diff": 1.9127
+      },
+      {
+        "feature": "T7",
+        "standardized_mean_diff": 1.9115
+      },
+      {
+        "feature": "T2",
+        "standardized_mean_diff": 1.7902
+      },
+      {
+        "feature": "T1",
+        "standardized_mean_diff": 1.7756
+      },
+      {
+        "feature": "T6",
+        "standardized_mean_diff": 1.4529
+      },
+      {
+        "feature": "T8",
+        "standardized_mean_diff": 1.4474
+      }
+    ],
+    "interpretation": "PSI < 0.10 low drift, 0.10-0.25 warning, >= 0.25 high drift."
   },
   "interpretation_note": "MAE/RMSE/MAPE measure numerical forecast error. They are not classification metrics like Precision/Recall/F1 used in anomaly detection.",
   "safety_note": "Forecast output is not an actuator command. It must pass risk rule, recommendation and human/safety confirmation before device control."
