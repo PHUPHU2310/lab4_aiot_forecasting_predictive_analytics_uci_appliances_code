@@ -1,4 +1,4 @@
-# LAB 4: Forecasting & Predictive Analytics cho dữ liệu IoT
+# LAB 4: Forecasting & Predictive Analytics cho dữ liệu IoT new
 
 ## 1. Lab này khác Lab 3 ở đâu?
 
